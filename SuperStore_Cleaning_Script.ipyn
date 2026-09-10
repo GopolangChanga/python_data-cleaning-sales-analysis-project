@@ -1,0 +1,161 @@
+# Super Store Sale Project
+
+
+## Loading Superstore data analysis 
+   
+import pandas as pd
+
+file_path = "data/train.csv"
+
+df = pd.read_csv(file_path)
+print(f"Starting shape: {df.shape}")
+
+   
+# View all duplicate rows before dropping them (audit trail)
+duplicate_rows = df[df.duplicated()]
+print("--- Duplicate Rows Found ---")
+print(duplicate_rows)
+
+# ------------------------------------------------------------------
+# 0. Remove duplicate rows first (exact dupes injected in generation)
+# ------------------------------------------------------------------
+df = df.drop_duplicates()
+print(f"After dropping exact duplicates: {df.shape}")
+    
+# ------------------------------------------------------------------
+# 1. Row ID — no nulls expected, just make sure it's clean int
+# ------------------------------------------------------------------
+
+df['Row ID'] = pd.to_numeric(df['Row ID'], errors='coerce').astype('Int64')
+    
+# ------------------------------------------------------------------
+# 2. Order ID — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Order ID'] = df['Order ID'].str.strip()
+   
+# ------------------------------------------------------------------
+# 3. dates — mixed format parse, coerce errors instead of crashing
+# ------------------------------------------------------------------
+
+df['Order Date'] = pd.to_datetime(df['Order Date'], format='mixed', errors='coerce')
+df['Ship Date'] = pd.to_datetime(df['Ship Date'], format='mixed', errors='coerce')
+
+# "0000-00-00" and "N/A" strings become NaT automatically via errors='coerce'
+df['Order Date'] = df['Order Date'].dt.strftime('%Y-%m-%d')
+df['Ship Date'] = df['Ship Date'].dt.strftime('%Y-%m-%d')
+    
+# ------------------------------------------------------------------
+# 4. Ship Mode — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Ship Mode'] = df['Ship Mode'].str.strip()
+     
+# ------------------------------------------------------------------
+# 4. Customer ID — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Customer ID'] = df['Customer ID'].str.strip()
+    
+# ------------------------------------------------------------------
+# 5. Customer ID — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Customer Name'] = df['Customer Name'].str.strip().str.title()
+   
+# ------------------------------------------------------------------
+# 6. Segment — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Segment'] = df['Segment'].str.strip().str.title()
+    
+# ------------------------------------------------------------------
+# 7. Country — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+country_map = {'United States': 'United States Of America'}
+        
+df['Country'] = (
+    df['Country']
+    .str.strip()
+    .replace(country_map)
+    .fillna('Not Provided')
+)
+    
+# ------------------------------------------------------------------
+# 7. City — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['City'] = df['City'].str.strip().str.title()
+   
+# ------------------------------------------------------------------
+# 7. State — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['State'] = df['State'].str.strip().str.title()
+    
+# ------------------------------------------------------------------
+# 8. Postal Code — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Postal Code'] = (df['Postal Code']
+                     .fillna('Not Provided')
+                     .astype(str)
+                     .str.replace(r'\.0$', '', regex=True) 
+                     .str.zfill(5))                        
+     
+# ------------------------------------------------------------------
+# 9. Region — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Region'] = df['Region'].str.strip().str.title()
+    
+# ------------------------------------------------------------------
+# 9. Product ID — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Product ID'] = df['Product ID'].str.strip().str.title()
+    
+# ------------------------------------------------------------------
+# 10. Category — normalize case first, then map known variants
+# ------------------------------------------------------------------
+
+category_map = {
+    'Office Supplies Categories': 'Office Supplies',
+}
+
+df['Category'] = (
+    df['Category']
+    .str.strip()
+    .str.title()          # normalize case FIRST so the map below reliably matches
+    .replace(category_map)
+    .fillna('Not Provided')
+)
+
+    
+# ------------------------------------------------------------------
+# 11. Sub-Category — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Sub-Category'] = df['Sub-Category'].str.strip().str.title()
+    
+# ------------------------------------------------------------------
+# 12. Product Name — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Product Name'] = df['Product Name'].str.strip().str.title()
+     
+# ------------------------------------------------------------------
+# 13. Sales — no nulls expected, just make sure it's clean
+# ------------------------------------------------------------------
+
+df['Sales'] = df['Sales'].astype(float).round(3)
+print(f"\nFinal shape: {df.shape}")
+print("\nNull counts after cleaning:")
+print(df.isnull().sum())
+
+out_path = 'data/cleaned_SuperStore_data.csv'
+df.to_csv(out_path, index=False)
+print(f"\nSaved cleaned file to {out_path}")
+
+df.head(3)
