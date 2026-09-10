@@ -1,15 +1,15 @@
 # All screenshot visuals
 
-```
+
 1. Sales by Category
 
 <img width="898" height="687" alt="image" src="https://github.com/user-attachments/assets/e13bcfd3-ac1d-4181-b5cf-7fd16b2402c6" />
-```
+
 
 2. Sales by Sub-Category
 
 <img width="1782" height="1055" alt="image" src="https://github.com/user-attachments/assets/5a75c4f6-c010-4f98-96e5-4d7b189c12d6" />
-```
+
 
 3. Sales by Region
 
