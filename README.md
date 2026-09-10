@@ -55,6 +55,9 @@ Built on the cleaned dataset — see `visualizations.md` for full code:
 All charts share one consistent style (font, sizing, color) set once via
 `matplotlib.rcParams`.
 
+
+| `screenshots.md` | All 7 chart screenshots in one place |
+
 ## Key finding: shipping date data quality issue
 
 Roughly **17% of rows (1,684 of 9,800)** had a `Ship Date` earlier than the
