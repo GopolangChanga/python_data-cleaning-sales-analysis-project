@@ -14,7 +14,8 @@ https://www.kaggle.com/datasets/rohitsahoo/sales-forecasting
 |---|---|
 | `SuperStore_Cleaning_Script.ipynb` | Full cleaning pipeline — file validation, encoding/size checks, and column-by-column cleaning |
 | `visualizations.md` | All chart-generation code (Python/matplotlib) built on the cleaned data |
-| `data/cleaned_SuperStore_data.csv` | The cleaned dataset, output of the notebook |
+| [`screenshots.md`](screenshots.md) | All 7 chart screenshots in one place |
+| `cleaned_SuperStore_data.csv` | The cleaned dataset, output of the notebook |
 
 ## Cleaning pipeline overview
 
