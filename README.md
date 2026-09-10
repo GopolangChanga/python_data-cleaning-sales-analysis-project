@@ -69,7 +69,7 @@ dropped outright.
 pip install pandas numpy matplotlib jupyter
 ```
 
-1. Place the raw source file at `data/train.csv`
+1. Place the raw source file at `train.csv`
 2. Run `SuperStore_Cleaning_Script.ipynb` top to bottom — it writes the
    cleaned file to `data/cleaned_SuperStore_data.csv`
 3. Open `visualizations.md` and run each code block against the cleaned
