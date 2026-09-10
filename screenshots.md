@@ -30,4 +30,9 @@
 <img width="847" height="687" alt="image" src="https://github.com/user-attachments/assets/bc8d61e8-87f9-4385-9aa8-0a29349a4a6e" />
 
 
+7. Top 10 Customers by Sales
+
+<img width="1782" height="881" alt="image" src="https://github.com/user-attachments/assets/4e4e1d79-d181-44cb-b0c4-a5742847c333" />
+
+
 ......
